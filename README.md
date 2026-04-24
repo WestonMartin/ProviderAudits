@@ -16,7 +16,7 @@ Auditing Provider Notes
 
 -- **<ins>PROCESS</ins>** --<br/>
 
-    1. ***Data Preparation***
+1. ***Data Preparation***
     Prepare all necessary systems and ensure data accuracy before beginning the audit.
         - **1.1 Missing Payors**
             - Download Fusion data
@@ -28,7 +28,7 @@ Auditing Provider Notes
             - Run "MasterTracker_ProviderUpdate" Google Script
             - Run "Create Trackers" Google Script
             - Run "NewProvider_WeeklyHistory" Google Script
-    2. ***Data Download***
+2. ***Data Download***
     Pull all required datasets for the audit period.
         - **2.1 Fusion Data**
             - Run report: "CS_Master Billing Audit"
@@ -60,7 +60,7 @@ Auditing Provider Notes
                     - Date range
                 * Export:
                     - Actions > Export Billing Items
-    3. ***Paste Data***
+3. ***Paste Data***
     Consolidate all datasets into the master audit file.
         - **3.1 Fusion Data**
             * Sort by:
@@ -79,7 +79,7 @@ Auditing Provider Notes
             * Paste into:
                 - "Tally_Group" tab
                 - Make sure that W & X columns retain formula
-    4. ***Audit Data***
+4. ***Audit Data***
     Perform audits across Fusion/Ensora, CR, and Tally datasets to identify discrepancies, missing actions, and incorrect billing.
         - **4.1 Fusion/Ensora Audits**
         Audit each tab within the Fusion dataset using the following rules:
@@ -280,7 +280,7 @@ Auditing Provider Notes
                     - “(TNCARE) Note should be billed with a 9 code”
                 * Audit Requirement:
                     - Mark “Audit”
-    5. ***Compile Audited Data***
+5. ***Compile Audited Data***
         - Review ‘AuditCompilation’
         For every tab and dataset:
             * Each tab MUST have some type of data in A2 and below.
@@ -295,11 +295,11 @@ Auditing Provider Notes
         Copy all data from AuditCompilation tab (Excluding Headers)
 
         - Transfer data to ‘Tracker-Post’
-    6. ***Upload to Provider Audit Trackers***
+6. ***Upload to Provider Audit Trackers***
         - Run Google Script “AuditDataPaste” from “Master Provider Audit Data” sheet
             * Open Extensions > Apps Scripts
             * Run AuditDataPaste script
-    7. ***Update Statuses & Notify Providers***
+7. ***Update Statuses & Notify Providers***
         - Open “Master Provider Billing Audit Tracker”
             * Open Extensions > Apps Scripts
             * Run “New_SendAuditEmails” script
@@ -309,13 +309,13 @@ Auditing Provider Notes
                 - If status is “Incomplete Note”, that means that the provider had at least one incomplete note on their individual tracker. They may have other note revisions on separate notes as well.
                 - If status is “Note Revisions Needed”, that means that the provider has notes that need to be revised for billing accuracy.
             * If status is “Complete”, that means that there are no revisions on the provider tracker.
-    8. ***Update Weekly Audit History***
+8. ***Update Weekly Audit History***
         - Open “Master Provider Billing Audit Tracker”
             * Open Extensions > Apps Scripts
             * Run “WeeklyAuditHistory” script
             * This will scan the “Master Tracker” tab and update each provider that has a status of “Incomplete Note” with an “X” on the corresponding date’s column.
                 - The date that you run the script has to match one of the dates on the headers otherwise it will throw an error.
-    9 ***Re-check to update status***
+9. ***Re-check to update status***
         - Open “Master Provider Billing Audit Tracker”
             * Open Extensions > Apps Scripts
             * Run “New_UpdateStatus_NoEmail” script
