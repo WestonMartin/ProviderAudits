@@ -1,1 +1,2 @@
+//Column D
 =Query(Tally_Group!A:Z, "SELECT G, H, B, P, E, I, R, M, N, L WHERE W = 'MATCH' AND (NOT P CONTAINS '92508' AND NOT P CONTAINS '97150' AND NOT P CONTAINS 'GRP')", 1)
