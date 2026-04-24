@@ -1,0 +1,1 @@
+=QUERY(CR_Master!A:DM, "Select W, K, AX, Z, AA, CH, BG, T, F, S", 1)

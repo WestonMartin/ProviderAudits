@@ -1,0 +1,1 @@
+=QUERY(Tally_Master!A:R,"SELECT F, B, K, C, G, O, J, M, H, E WHERE A IS NOT NULL", 1)
