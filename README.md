@@ -16,313 +16,312 @@ Auditing Provider Notes
 
 -- **<ins>PROCESS</ins>** --<br/>
 
-1. ***Data Preparation***
+1. ***Data Preparation***<br/>
     Prepare all necessary systems and ensure data accuracy before beginning the audit.
-        - **1.1 Missing Payors**
-            - Download Fusion data
-            - Run "Missing Payor" Google Script
-        - **1.2 Master Provider Roster**
-            - Verify all applicable providers are marked as active
-            - Ensure no inactive providers are included in the audit population
-        - **1.3 Master Provider Billing Audit Tracker**
-            - Run "MasterTracker_ProviderUpdate" Google Script
-            - Run "Create Trackers" Google Script
-            - Run "NewProvider_WeeklyHistory" Google Script
-2. ***Data Download***
+    - **1.1 Missing Payors**
+        - Download Fusion data
+        - Run "Missing Payor" Google Script
+    - **1.2 Master Provider Roster**
+        - Verify all applicable providers are marked as active
+        - Ensure no inactive providers are included in the audit population
+    - **1.3 Master Provider Billing Audit Tracker**
+        - Run "MasterTracker_ProviderUpdate" Google Script
+        - Run "Create Trackers" Google Script
+        - Run "NewProvider_WeeklyHistory" Google Script
+2. ***Data Download***<br/>
     Pull all required datasets for the audit period.
-        - **2.1 Fusion Data**
-            - Run report: "CS_Master Billing Audit"
-            - Ensure correct date range is selected prior to download
-        - **2.2 CR Data**
+    - **2.1 Fusion Data**
+        - Run report: "CS_Master Billing Audit"
+        - Ensure correct date range is selected prior to download
+    - **2.2 CR Data**
+        - Navigate to:
+            - Scheduling > Unconverted CSV Report
+        - Apply filters:
+            - Set correct date range
+        - Additional steps:
+            - Go to Scheduling > View as Grid
+            - Remove Principal on Appointment filter
+            - Apply filter:
+                - Conversion Audits → Converted → No
+        - Download report
+    - **2.3 Tally Data**
+        - Scheduling Data
             - Navigate to:
-                * Scheduling > Unconverted CSV Report
+                - Schedule
             - Apply filters:
-                * Set correct date range
-            - Additional steps:
-                * Go to Scheduling > View as Grid
-                * Remove Principal on Appointment filter
-                * Apply filter:
-                    - Conversion Audits → Converted → No
-            - Download report
-        - **2.3 Tally Data**
-            - Scheduling Data
-                * Navigate to:
-                    - Schedule
-                * Apply filters:
-                    - Date range
-                    - Appointment Status: Held & Scheduled
-                * Click:
-                    - Apply > Download Appointments
-            - Billing Data
-                * Navigate to:
-                    - Billing & Insurance → Billing Items
-                * Apply filters:
-                    - Date range
-                * Export:
-                    - Actions > Export Billing Items
-3. ***Paste Data***
+                - Date range
+                - Appointment Status: Held & Scheduled
+            - Click:
+                - Apply > Download Appointments
+        - Billing Data
+            - Navigate to:
+                - Billing & Insurance → Billing Items
+            - Apply filters:
+                - Date range
+            - Export:
+                - Actions > Export Billing Items
+3. ***Paste Data***<br/>
     Consolidate all datasets into the master audit file.
-        - **3.1 Fusion Data**
-            * Sort by:
-                - Therapist Name
-                - Appt. Date/Time
-            * Paste into:
-                - "Fusion_Master" tab in Master Provider Audit Data
-        - **3.2 CR Data**
-            * Paste into:
-                - "CR_Master" tab in Master Provider Audit Data
-        - **3.3 Tally Data**
-        Schedule Data
-            * Paste into:
-                - "Tally_Master" tab
-        Billing Data
-            * Paste into:
+    - **3.1 Fusion Data**
+        - Sort by:
+            - Therapist Name
+            - Appt. Date/Time
+        - Paste into:
+            - "Fusion_Master" tab in Master Provider Audit Data
+    - **3.2 CR Data**
+        - Paste into:
+            - "CR_Master" tab in Master Provider Audit Data
+    - **3.3 Tally Data**<br/>
+        - Schedule Data
+            - Paste into:
+                - "Tally_Master" tab<br/>
+        - *Billing Data*
+            - Paste into:
                 - "Tally_Group" tab
                 - Make sure that W & X columns retain formula
-4. ***Audit Data***
+4. ***Audit Data***<br/>
     Perform audits across Fusion/Ensora, CR, and Tally datasets to identify discrepancies, missing actions, and incorrect billing.
-        - **4.1 Fusion/Ensora Audits**
+    - **4.1 Fusion/Ensora Audits**
         Audit each tab within the Fusion dataset using the following rules:
-            - *Sch_Notes*
-                * Criteria:
-                    - Appointment Status = Scheduled
+        - *Sch_Notes*
+            - Criteria:
+                - Appointment Status = Scheduled
                     OR
-                    - Appointment Status = Checked In AND SOAP Status = Not Started or Draft
-                * Action Logic:
-                    - Scheduled > “Please check in or cancel appointment”
-                    - Checked In without completed SOAP > “Please complete this note”
-                * Audit Requirement:
-                    - Update Audit column = “Audit” for all rows with Action Needed
-            - *Sch_Pay_Loc*
-                * Criteria:
-                    - SOAP = Signed OR Charges Submitted
-                    - Location does not equal Clinic/Home
-                    - Payor does NOT contain: INS / MED / Private Pay
-                    - Patient does not equal Non-billable
-                * Action Logic:
-                    - If Location does not equal Payor >“Location on SOAP note does not match student’s payor on file”
-                    - If matched > “Match”
-            - *Audit Steps:*
-                * Filter to mismatches
-                * Cross-reference with School Naming/Locations sheet
-                * Validate appropriateness
+                - Appointment Status = Checked In AND SOAP Status = Not Started or Draft
+            - Action Logic:
+                - Scheduled > “Please check in or cancel appointment”
+                - Checked In without completed SOAP > “Please complete this note”
             - Audit Requirement:
-                * Mark “Audit” for all rows requiring review
-            - *9*
-                * Criteria:
-                    - SOAP = Signed OR Charges Submitted
-                    - Code does NOT contain: 9, NB, MT
-                    - Code includes: TX / GR / EVL
-                    - Payor contains: INS / MED / Private Pay
-                * Audit Steps:
-                    - Compare:
-                        * Patient Alert Date vs Appt Date
-                    - If Appt Date is BEFORE Alert Date:
-                        * Should have billed insurance
-                * Action Logic:
-                    - "(TNCARE) Note should be billed with a 9 code"
-                * Audit Requirement:
-                    - Mark “Audit” for all applicable rows
-            - *School*
-                * Criteria:
-                    - SOAP = Signed OR Charges Submitted
-                    - Code contains “9”
-                    - Payor does NOT contain: INS / MED / Private Pay
-                * Action Logic:
+                - Update Audit column = “Audit” for all rows with Action Needed
+        - *Sch_Pay_Loc*
+            - Criteria:
+                - SOAP = Signed OR Charges Submitted
+                - Location does not equal Clinic/Home
+                - Payor does NOT contain: INS / MED / Private Pay
+                - Patient does not equal Non-billable
+            - Action Logic:
+                - If Location does not equal Payor >“Location on SOAP note does not match student’s payor on file”
+                - If matched > “Match”
+            - Audit Steps:
+                - Filter to mismatches
+                - Cross-reference with School Naming/Locations sheet
+                - Validate appropriateness
+            - Audit Requirement:
+                - Mark “Audit” for all rows requiring review
+        - *9*
+            - Criteria:
+                - SOAP = Signed OR Charges Submitted
+                - Code does NOT contain: 9, NB, MT
+                - Code includes: TX / GR / EVL
+                - Payor contains: INS / MED / Private Pay
+            - Audit Steps:
+                - Compare:
+                    - Patient Alert Date vs Appt Date
+                - If Appt Date is BEFORE Alert Date:
+                    - Should have billed insurance
+            - Action Logic:
+                - "(TNCARE) Note should be billed with a 9 code"
+            - Audit Requirement:
+                - Mark “Audit” for all applicable rows
+        - *School*
+            - Criteria:
+                - SOAP = Signed OR Charges Submitted
+                - Code contains “9”
+                - Payor does NOT contain: INS / MED / Private Pay
+            - Action Logic:
+                - “Note should be billed with a School code”
+            - Audit Requirement:
+                - Mark “Audit”
+        - *School Code – Payor Match*
+            - Criteria:
+                - SOAP = Signed OR Charges Submitted
+                - Code does NOT contain: 9, NB
+                - Payor does NOT contain: INS / MED / Private Pay
+                - Charge is greater than $0
+            - Action Logic:
+                - If mismatch:
+                    - “The School code does not match Payor”
+            - Audit Steps:
+                - Filter mismatches
+                - Validate using:
+                    - PPT Code Catalog
+                    - Payor/code prefix alignment
+            - Final Action:
+                - If incorrect:
                     - “Note should be billed with a School code”
-                * Audit Requirement:
-                    - Mark “Audit”
-            - *School Code – Payor Match*
-                * Criteria:
-                    - SOAP = Signed OR Charges Submitted
-                    - Code does NOT contain: 9, NB
-                    - Payor does NOT contain: INS / MED / Private Pay
-                    - Charge is greater than $0
-                * Action Logic:
-                    - If mismatch:
-                        * “The School code does not match Payor”
-                * Audit Steps:
-                    - Filter mismatches
-                    - Validate using:
-                        * PPT Code Catalog
-                        * Payor/code prefix alignment
-                * Final Action:
-                    - If incorrect:
-                        * “Note should be billed with a School code”
-                * Audit Requirement:
-                    - Mark “Audit”
-            - *Flat to Hourly*
-                * Criteria:
-                    - SOAP = Signed OR Charges Submitted
-                    - Code does NOT contain: 9, NB\
-                    - Payor does NOT contain: INS / MED / Private Pay / VAL
-                    - Charge = $0
-                    - Service = PT
-                * Action Logic:
-                    - “Incorrect school code. Please use a specific school code”
-                * Audit Requirement:
-                    - All rows require Audit
-            - *NB+*
-                * Criteria:
-                    - SOAP = Signed OR Charges Submitted
-                    - Patient Name contains “Billable, Non”
-                * Audit Steps:
-                    - Review any codes that aren’t “NB_”
-                    - If so, inform provider to change either code or patient name.
-                * Audit Requirement:
-                    - Mark “Audit”
-            - *NB-*
-                * Criteria:
-                    - SOAP = Signed OR Charges Submitted
-                    - Code contains “NB_”
-                * Audit Steps:
-                    - Review codes “NB_1-4”
-                        * If patient isn’t “Billable, Non” then change patient.
-                    - Review codes “NB_5-9”
-                        * If Payor is not INS, MED or Private Pay, change the code.
-                * Audit Requirement:
-                    - Mark “Audit”
-            - *Multi-Codes*
-                * Criteria:
-                    - SOAP = Signed OR Charges Submitted
-                    - Code contains multiple values (comma)
-                * Action Logic:
-                    - “Session has 2 codes associated. Please review for accuracy”
-                * Audit Steps:
-                    - Flag if:
-                        * More than 2 CPT codes
-                        * Invalid code combinations
-                * Audit Requirement:
-                    - Mark “Audit”
-            - *Code Service Match*
-                * Criteria:
-                    - SOAP = Signed OR Charges Submitted
-                    - Code does NOT contain: 9, NB, NS
-                * Action Logic:
-                    - “Code type does not match service”
-                * Audit Steps:
-                    - Compare:
-                        * Code vs Service type
-                * Audit Requirement:
-                    - Mark “Audit”
-            - *Group_Y*
-                * Criteria:
-                    - Refer to Group Calculations tab
-                    - “Match” where codes do NOT contain:
-                        * 92508, 97150, GRP
-                    - If it shares the same time with a “No Show” code, ignore.
-                * Action Logic:
-                    - “Note should be billed with a group code”
-                * Audit Requirement:
-                    - Mark “Audit”
-            - *Group_N*
-                * Criteria:
-                    - Refer to Group Calculations tab
-                    - “–” where codes DO contain:
-                        * 92508, 97150, GRP
-                    - If it shares the same time with a “No Show” code, ignore.
-                * Action Logic:
-                    - “Note should not be billed with a group code”
-                * Audit Requirement:
-                    - Mark “Audit”
-        - **4.2 CR Audits**
-            - *CR_Unconverted Tab*
-                * Ensure that “Audit” is present on each row of data in CR_Unconverted after pasting data in CR_Master.
-            Perform the following audits within CR data:
-            - *Standard Audits*
-                * Duplicate Timesheets
-                * Overlapping Timesheets
-                * Audit by Codes
-            - *Code-Specific Audits*
-                * BCBA-Specific codes
-                    - Audit for any non-BCBA providers that are billing with BCBA codes.
-            - *Duration Audit*
-                * Flag sessions greater than 5 hours
-                    - Review for potential errors
-            - *NB Audit*
-                * NB codes should be billed to the client of “Non Billable”
-        - **4.3 Tally Audits**
-            - *Incomplete Sessions Audit*
-                * Navigate to:
-                    - Tally_Check
-                * Ensure that “Audit” is present on each row of data in CR_Unconverted after pasting data in CR_Master.
-            - *T_Duplicate*
-                * Check accuracy of duplicate instances:
-                    - May be a scenario of double last names for clients
-                * Review completed session billing accuracy
-            - *TGroup_Yes*
-                * Criteria:
-                    - Refer to Tally_Group
-                    - “Match” where codes do NOT contain:
-                        * 92508, 97150, GRP
-                    - If it shares the same time with a “No Show” code, ignore.
-                * Action Logic:
-                    - “Note SHOULD be billed with a group code”
-                * Audit Requirement:
-                    - Mark “Audit”
-            - *TGroup_No*
-                * Criteria:
-                    - Refer to Tally_Group
-                    - “Match” where codes DOES contain:
-                        * 92508, 97150, GRP
-                * Action Logic:
-                    - “Note SHOULD NOT billed with a group code”
-                * Audit Requirement:
-                    - Mark “Audit”
-            - *T_TNCare*
-                * Criteria:
-                    - Refer to Tally_Group
-                    - “Match” where codes DOES contain:
-                        * TX, GRP, EVL
-                    - “Match” where Other Payers contain:
-                        * MED
-                * Action Logic:
-                    - “(TNCARE) Note should be billed with a 9 code”
-                * Audit Requirement:
-                    - Mark “Audit”
-5. ***Compile Audited Data***
-        - Review ‘AuditCompilation’
+            - Audit Requirement:
+                - Mark “Audit”
+        - *Flat to Hourly*
+            - Criteria:
+                - SOAP = Signed OR Charges Submitted
+                - Code does NOT contain: 9, NB\
+                - Payor does NOT contain: INS / MED / Private Pay / VAL
+                - Charge = $0
+                - Service = PT
+            - Action Logic:
+                - “Incorrect school code. Please use a specific school code”
+            - Audit Requirement:
+                - All rows require Audit
+        - *NB+*
+            - Criteria:
+                - SOAP = Signed OR Charges Submitted
+                - Patient Name contains “Billable, Non”
+            - Audit Steps:
+                - Review any codes that aren’t “NB_”
+                - If so, inform provider to change either code or patient name.
+            - Audit Requirement:
+                - Mark “Audit”
+        - *NB-*
+            - Criteria:
+                - SOAP = Signed OR Charges Submitted
+                - Code contains “NB_”
+            - Audit Steps:
+                - Review codes “NB_1-4”
+                    - If patient isn’t “Billable, Non” then change patient.
+                - Review codes “NB_5-9”
+                    - If Payor is not INS, MED or Private Pay, change the code.
+            - Audit Requirement:
+                - Mark “Audit”
+        - *Multi-Codes*
+            - Criteria:
+                - SOAP = Signed OR Charges Submitted
+                - Code contains multiple values (comma)
+            - Action Logic:
+                - “Session has 2 codes associated. Please review for accuracy”
+            - Audit Steps:
+                - Flag if:
+                    - More than 2 CPT codes
+                    - Invalid code combinations
+            - Audit Requirement:
+                - Mark “Audit”
+        - *Code Service Match*
+            - Criteria:
+                - SOAP = Signed OR Charges Submitted
+                - Code does NOT contain: 9, NB, NS
+            - Action Logic:
+                - “Code type does not match service”
+            - Audit Steps:
+                - Compare:
+                    - Code vs Service type
+            - Audit Requirement:
+                - Mark “Audit”
+        - *Group_Y*
+            - Criteria:
+                - Refer to Group Calculations tab
+                - “Match” where codes do NOT contain:
+                    - 92508, 97150, GRP
+                - If it shares the same time with a “No Show” code, ignore.
+            - Action Logic:
+                - “Note should be billed with a group code”
+            - Audit Requirement:
+                - Mark “Audit”
+        - *Group_N*
+            - Criteria:
+                - Refer to Group Calculations tab
+                - “–” where codes DO contain:
+                    - 92508, 97150, GRP
+                - If it shares the same time with a “No Show” code, ignore.
+            - Action Logic:
+                - “Note should not be billed with a group code”
+            - Audit Requirement:
+                - Mark “Audit”
+    - **4.2 CR Audits**
+        - *CR_Unconverted Tab*
+            - Ensure that “Audit” is present on each row of data in CR_Unconverted after pasting data in CR_Master.
+        - Perform the following audits within CR data:
+        - *Standard Audits*
+            - Duplicate Timesheets
+            - Overlapping Timesheets
+            - Audit by Codes
+        - *Code-Specific Audits*
+            - BCBA-Specific codes
+                - Audit for any non-BCBA providers that are billing with BCBA codes.
+        - *Duration Audit*
+            - Flag sessions greater than 5 hours
+                - Review for potential errors
+        - *NB Audit*
+            - NB codes should be billed to the client of “Non Billable”
+    - **4.3 Tally Audits**
+        - *Incomplete Sessions Audit*
+            - Navigate to:
+                - Tally_Check
+            - Ensure that “Audit” is present on each row of data in CR_Unconverted after pasting data in CR_Master.
+        - *T_Duplicate*
+            - Check accuracy of duplicate instances:
+                - May be a scenario of double last names for clients
+            - Review completed session billing accuracy
+        - *TGroup_Yes*
+            - Criteria:
+                - Refer to Tally_Group
+                - “Match” where codes do NOT contain:
+                    - 92508, 97150, GRP
+                - If it shares the same time with a “No Show” code, ignore.
+            - Action Logic:
+                - “Note SHOULD be billed with a group code”
+            - Audit Requirement:
+                - Mark “Audit”
+        - *TGroup_No*
+            - Criteria:
+                - Refer to Tally_Group
+                - “Match” where codes DOES contain:
+                    - 92508, 97150, GRP
+            - Action Logic:
+                - “Note SHOULD NOT billed with a group code”
+            - Audit Requirement:
+                - Mark “Audit”
+        - *T_TNCare*
+            - Criteria:
+                - Refer to Tally_Group
+                - “Match” where codes DOES contain:
+                    - TX, GRP, EVL
+                - “Match” where Other Payers contain:
+                    - MED
+            - Action Logic:
+                - “(TNCARE) Note should be billed with a 9 code”
+            - Audit Requirement:
+                - Mark “Audit”
+5. ***Compile Audited Data***<br/>
+    - Review ‘AuditCompilation’
         For every tab and dataset:
-            * Each tab MUST have some type of data in A2 and below.
-            * Any row requiring review must have:
-                - Audit Column = “Audit”
-            * Ensure:
-                - Action Needed is clearly populated
-                - Only valid, actionable discrepancies are flagged
-            * IF there is an error in the tab data:
-                - Each tab MUST have some type of data in A2 and below.
-        - Transfer data to ‘Tracker-Post’
+        - Each tab MUST have some type of data in A2 and below.
+        - Any row requiring review must have:
+            - Audit Column = “Audit”
+        - Ensure:
+            - Action Needed is clearly populated
+            - Only valid, actionable discrepancies are flagged
+        - IF there is an error in the tab data:
+            - Each tab MUST have some type of data in A2 and below.
+    - Transfer data to ‘Tracker-Post’
         Copy all data from AuditCompilation tab (Excluding Headers)
-
-        - Transfer data to ‘Tracker-Post’
-6. ***Upload to Provider Audit Trackers***
-        - Run Google Script “AuditDataPaste” from “Master Provider Audit Data” sheet
-            * Open Extensions > Apps Scripts
-            * Run AuditDataPaste script
-7. ***Update Statuses & Notify Providers***
-        - Open “Master Provider Billing Audit Tracker”
-            * Open Extensions > Apps Scripts
-            * Run “New_SendAuditEmails” script
-                - Edit any portion of the email that you want to change if needed.
-            * This will scan each provider tracker to see if they have anything that was posted based upon the audit. Anything that is found will automatically send an email to providers that have anything on their trackers.
-            * Column K (Status) will change for each provider based upon the type of actions needed if there were any.
-                - If status is “Incomplete Note”, that means that the provider had at least one incomplete note on their individual tracker. They may have other note revisions on separate notes as well.
-                - If status is “Note Revisions Needed”, that means that the provider has notes that need to be revised for billing accuracy.
-            * If status is “Complete”, that means that there are no revisions on the provider tracker.
-8. ***Update Weekly Audit History***
-        - Open “Master Provider Billing Audit Tracker”
-            * Open Extensions > Apps Scripts
-            * Run “WeeklyAuditHistory” script
-            * This will scan the “Master Tracker” tab and update each provider that has a status of “Incomplete Note” with an “X” on the corresponding date’s column.
-                - The date that you run the script has to match one of the dates on the headers otherwise it will throw an error.
-9. ***Re-check to update status***
-        - Open “Master Provider Billing Audit Tracker”
-            * Open Extensions > Apps Scripts
-            * Run “New_UpdateStatus_NoEmail” script
-            * This will scan each provider tracker to see if they have anything that was posted based upon the audit. Anything that is found will automatically send an email to providers that have anything on their trackers.
-            * Column K (Status) will change for each provider based upon the type of actions needed if there were any.
-                - If status is “Incomplete Note”, that means that the provider had at least one incomplete note on their individual tracker. They may have other note revisions on separate notes as well
-                - If status is “Note Revisions Needed”, that means that the provider has notes that need to be revised for billing accuracy.
-            * If status is “Complete”, that means that there are no revisions on the provider tracker.
+    - Transfer data to ‘Tracker-Post’
+6. ***Upload to Provider Audit Trackers***<br/>
+    - Run Google Script “AuditDataPaste” from “Master Provider Audit Data” sheet
+        - Open Extensions > Apps Scripts
+        - Run AuditDataPaste script
+7. ***Update Statuses & Notify Providers***<br/>
+    - Open “Master Provider Billing Audit Tracker”
+        - Open Extensions > Apps Scripts
+        - Run “New_SendAuditEmails” script
+            - Edit any portion of the email that you want to change if needed.
+        - This will scan each provider tracker to see if they have anything that was posted based upon the audit. Anything that is found will automatically send an email to providers that have anything on their trackers.
+        - Column K (Status) will change for each provider based upon the type of actions needed if there were any.
+            - If status is “Incomplete Note”, that means that the provider had at least one incomplete note on their individual tracker. They may have other note revisions on separate notes as well.
+            - If status is “Note Revisions Needed”, that means that the provider has notes that need to be revised for billing accuracy.
+        - If status is “Complete”, that means that there are no revisions on the provider tracker.
+8. ***Update Weekly Audit History***<br/>
+    - Open “Master Provider Billing Audit Tracker”
+        - Open Extensions > Apps Scripts
+        - Run “WeeklyAuditHistory” script
+        - This will scan the “Master Tracker” tab and update each provider that has a status of “Incomplete Note” with an “X” on the corresponding date’s column.
+            - The date that you run the script has to match one of the dates on the headers otherwise it will throw an error.
+9. ***Re-check to update status***<br/>
+    - Open “Master Provider Billing Audit Tracker”
+        - Open Extensions > Apps Scripts
+        - Run “New_UpdateStatus_NoEmail” script
+        - This will scan each provider tracker to see if they have anything that was posted based upon the audit. Anything that is found will automatically send an email to providers that have anything on their trackers.
+        - Column K (Status) will change for each provider based upon the type of actions needed if there were any.
+            - If status is “Incomplete Note”, that means that the provider had at least one incomplete note on their individual tracker. They may have other note revisions on separate notes as well
+            - If status is “Note Revisions Needed”, that means that the provider has notes that need to be revised for billing accuracy.
+        - If status is “Complete”, that means that there are no revisions on the provider tracker.
 
 
