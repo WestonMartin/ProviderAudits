@@ -94,15 +94,22 @@ Auditing Provider Notes
 1. ***Data Preparation***<br/>
     Prepare all necessary systems and ensure data accuracy before beginning the audit.
     - **1.1 Missing Payors**
-        - Download Fusion data
-        - Run "Missing Payor" Google Script
+        - Download Fusion billing data
+            - Run report: "CS_Master Billing Audit"
+        - Paste into [Master Provider Audit Data | Fusion Master](GoogleSheets/Master%20Provider%20Audit%20Data/Fusion_Master.png)
+        - Run GoogleScript: [NoPayorAudit](GoogleScripts/Master%20Provider%20Audit%20Data/NoPayorAudit.js)
+        - Search in [Master Provider Audit Data | INT_Blanks](GoogleSheets/Master%20Provider%20Audit%20Data/INT_Blanks.png) for any clients with blank payers.
+        - Update billing account routing in Fusion
+            - Billing > Billing Accounts > Edit > Statements
+        - Update payor in client profile in Fusion.
+            - Search > Profile > Payor > Add
     - **1.2 Master Provider Roster**
         - Verify all applicable providers are marked as active
         - Ensure no inactive providers are included in the audit population
     - **1.3 Master Provider Billing Audit Tracker**
-        - Run "MasterTracker_ProviderUpdate" Google Script
-        - Run "Create Trackers" Google Script
-        - Run "NewProvider_WeeklyHistory" Google Script
+        - Run GoogleScript: [MasterTracker_ProviderUpdate](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/MasterTracker_ProviderUpdate.js)
+        - Run GoogleScript: [Create Trackers](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/CreateTrackers.js)
+        - Run GoogleScript: [NewProvider_WeeklyHistory](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/NewProvider_WeeklyHistory.js)
 2. ***Data Download***<br/>
     Pull all required datasets for the audit period.
     - **2.1 Fusion Data**
@@ -117,7 +124,7 @@ Auditing Provider Notes
             - Go to Scheduling > View as Grid
             - Remove Principal on Appointment filter
             - Apply filter:
-                - Conversion Audits → Converted → No
+                - Conversion Audits > Converted > No
         - Download report
     - **2.3 Tally Data**
         - Scheduling Data
@@ -136,29 +143,33 @@ Auditing Provider Notes
             - Export:
                 - Actions > Export Billing Items
 3. ***Paste Data***<br/>
-    Consolidate all datasets into the master audit file.
+    Consolidate all datasets into the [Master Provider Audit Data](GoogleSheets/Master%20Provider%20Audit%20Data/) in their respective tabs.
     - **3.1 Fusion Data**
         - Sort by:
             - Therapist Name
             - Appt. Date/Time
         - Paste into:
-            - "Fusion_Master" tab in Master Provider Audit Data
+            - Google Sheet: [Master Provider Audit Data](GoogleSheets/Master%20Provider%20Audit%20Data/)
+                - Tab: [Fusion Master](Googlesheets/Master%20Provider%20Audit%20Data/Fusion_Master.png)
     - **3.2 CR Data**
         - Paste into:
-            - "CR_Master" tab in Master Provider Audit Data
+            - Google Sheet: [Master Provider Audit Data](GoogleSheets/Master%20Provider%20Audit%20Data/)
+                - Tab: [CR Master](Googlesheets/Master%20Provider%20Audit%20Data/CR_Master.png)
     - **3.3 Tally Data**<br/>
-        - Schedule Data
+        - *Schedule Data*
             - Paste into:
-                - "Tally_Master" tab<br/>
+                - Google Sheet: [Master Provider Audit Data](GoogleSheets/Master%20Provider%20Audit%20Data/)
+                    - Tab: [Tally_Master](Googlesheets/Master%20Provider%20Audit%20Data/Tally_Master.png)<br/>
         - *Billing Data*
             - Paste into:
-                - "Tally_Group" tab
-                - Make sure that W & X columns retain formula
+                - Google Sheet: [Master Provider Audit Data](GoogleSheets/Master%20Provider%20Audit%20Data/)
+                    - Tab: [Tally_Group](Googlesheets/Master%20Provider%20Audit%20Data/Tally_Group.png)
+            - Make sure that columns W & X retain formula
 4. ***Audit Data***<br/>
     Perform audits across Fusion/Ensora, CR, and Tally datasets to identify discrepancies, missing actions, and incorrect billing.
     - **4.1 Fusion/Ensora Audits**
         Audit each tab within the Fusion dataset using the following rules:
-        - *Sch_Notes*
+        - *[Sch_Notes](GoogleSheets/Master%20Provider%20Audit%20Data/Sch_Notes.png)*
             - Criteria:
                 - Appointment Status = Scheduled
                     OR
@@ -168,7 +179,7 @@ Auditing Provider Notes
                 - Checked In without completed SOAP > “Please complete this note”
             - Audit Requirement:
                 - Update Audit column = “Audit” for all rows with Action Needed
-        - *Sch_Pay_Loc*
+        - *[Sch_Pay_Loc](GoogleSheets/Master%20Provider%20Audit%20Data/Sch_Pay_Loc.png)*
             - Criteria:
                 - SOAP = Signed OR Charges Submitted
                 - Location does not equal Clinic/Home
@@ -183,7 +194,7 @@ Auditing Provider Notes
                 - Validate appropriateness
             - Audit Requirement:
                 - Mark “Audit” for all rows requiring review
-        - *9*
+        - *[9](GoogleSheets/Master%20Provider%20Audit%20Data/9.png)*
             - Criteria:
                 - SOAP = Signed OR Charges Submitted
                 - Code does NOT contain: 9, NB, MT
@@ -198,7 +209,7 @@ Auditing Provider Notes
                 - "(TNCARE) Note should be billed with a 9 code"
             - Audit Requirement:
                 - Mark “Audit” for all applicable rows
-        - *School*
+        - *[School](GoogleSheets/Master%20Provider%20Audit%20Data/School.png)*
             - Criteria:
                 - SOAP = Signed OR Charges Submitted
                 - Code contains “9”
@@ -207,7 +218,7 @@ Auditing Provider Notes
                 - “Note should be billed with a School code”
             - Audit Requirement:
                 - Mark “Audit”
-        - *School Code – Payor Match*
+        - *[School Code – Payor Match](GoogleSheets/Master%20Provider%20Audit%20Data/School%20Code-Payer%20Match.png)*
             - Criteria:
                 - SOAP = Signed OR Charges Submitted
                 - Code does NOT contain: 9, NB
@@ -226,7 +237,7 @@ Auditing Provider Notes
                     - “Note should be billed with a School code”
             - Audit Requirement:
                 - Mark “Audit”
-        - *Flat to Hourly*
+        - *[Flat to Hourly](GoogleSheets/Master%20Provider%20Audit%20Data/Flat%20to%20Hourly.png)*
             - Criteria:
                 - SOAP = Signed OR Charges Submitted
                 - Code does NOT contain: 9, NB\
@@ -237,7 +248,7 @@ Auditing Provider Notes
                 - “Incorrect school code. Please use a specific school code”
             - Audit Requirement:
                 - All rows require Audit
-        - *NB+*
+        - *[NB+](GoogleSheets/Master%20Provider%20Audit%20Data/NB+.png)*
             - Criteria:
                 - SOAP = Signed OR Charges Submitted
                 - Patient Name contains “Billable, Non”
@@ -246,7 +257,7 @@ Auditing Provider Notes
                 - If so, inform provider to change either code or patient name.
             - Audit Requirement:
                 - Mark “Audit”
-        - *NB-*
+        - *[NB-](GoogleSheets/Master%20Provider%20Audit%20Data/NB-.png)*
             - Criteria:
                 - SOAP = Signed OR Charges Submitted
                 - Code contains “NB_”
@@ -257,7 +268,7 @@ Auditing Provider Notes
                     - If Payor is not INS, MED or Private Pay, change the code.
             - Audit Requirement:
                 - Mark “Audit”
-        - *Multi-Codes*
+        - *[Multi-Codes](GoogleSheets/Master%20Provider%20Audit%20Data/Multi-Codes.png)*
             - Criteria:
                 - SOAP = Signed OR Charges Submitted
                 - Code contains multiple values (comma)
@@ -269,7 +280,7 @@ Auditing Provider Notes
                     - Invalid code combinations
             - Audit Requirement:
                 - Mark “Audit”
-        - *Code Service Match*
+        - *[Code Service Match](GoogleSheets/Master%20Provider%20Audit%20Data/Code%20Service%20Match.png)*
             - Criteria:
                 - SOAP = Signed OR Charges Submitted
                 - Code does NOT contain: 9, NB, NS
@@ -280,7 +291,7 @@ Auditing Provider Notes
                     - Code vs Service type
             - Audit Requirement:
                 - Mark “Audit”
-        - *Group_Y*
+        - *[Group_Y](GoogleSheets/Master%20Provider%20Audit%20Data/Group_Y.png)*
             - Criteria:
                 - Refer to Group Calculations tab
                 - “Match” where codes do NOT contain:
@@ -290,7 +301,7 @@ Auditing Provider Notes
                 - “Note should be billed with a group code”
             - Audit Requirement:
                 - Mark “Audit”
-        - *Group_N*
+        - *[Group_N](GoogleSheets/Master%20Provider%20Audit%20Data/Group_N.png)*
             - Criteria:
                 - Refer to Group Calculations tab
                 - “–” where codes DO contain:
@@ -300,10 +311,11 @@ Auditing Provider Notes
                 - “Note should not be billed with a group code”
             - Audit Requirement:
                 - Mark “Audit”
-    - **4.2 CR Audits**
-        - *CR_Unconverted Tab*
+    - **4.2 CR Audits**</br>
+    Audit each tab within the CR dataset using the following rules:
+        - *[CR_Unconverted](GoogleSheets/Master%20Provider%20Audit%20Data/CR_Unconverted.png)*
             - Ensure that “Audit” is present on each row of data in CR_Unconverted after pasting data in CR_Master.
-        - Perform the following audits within CR data:
+        - Perform the following audits within CR's Billing module:
         - *Standard Audits*
             - Duplicate Timesheets
             - Overlapping Timesheets
@@ -317,15 +329,16 @@ Auditing Provider Notes
         - *NB Audit*
             - NB codes should be billed to the client of “Non Billable”
     - **4.3 Tally Audits**
+    Audit each tab within the Tally dataset using the following rules:
         - *Incomplete Sessions Audit*
             - Navigate to:
-                - Tally_Check
+                - [Tally_Check](GoogleSheets/Master%20Provider%20Audit%20Data/Tally_Check.png)
             - Ensure that “Audit” is present on each row of data in CR_Unconverted after pasting data in CR_Master.
-        - *T_Duplicate*
+        - *[T_Duplicate](GoogleSheets/Master%20Provider%20Audit%20Data/T_Duplicate.png)*
             - Check accuracy of duplicate instances:
                 - May be a scenario of double last names for clients
             - Review completed session billing accuracy
-        - *TGroup_Yes*
+        - *[TGroup_Yes](GoogleSheets/Master%20Provider%20Audit%20Data/TGroup_Yes.png)*
             - Criteria:
                 - Refer to Tally_Group
                 - “Match” where codes do NOT contain:
@@ -335,7 +348,7 @@ Auditing Provider Notes
                 - “Note SHOULD be billed with a group code”
             - Audit Requirement:
                 - Mark “Audit”
-        - *TGroup_No*
+        - *[TGroup_No](Googlesheets/Master%20Provider%20Audit%20Data/TGroup_No.png)*
             - Criteria:
                 - Refer to Tally_Group
                 - “Match” where codes DOES contain:
@@ -344,7 +357,7 @@ Auditing Provider Notes
                 - “Note SHOULD NOT billed with a group code”
             - Audit Requirement:
                 - Mark “Audit”
-        - *T_TNCare*
+        - *[T_TNCare](GoogleSheets/Master%20Provider%20Audit%20Data/T_TNCare.png)*
             - Criteria:
                 - Refer to Tally_Group
                 - “Match” where codes DOES contain:
@@ -356,7 +369,7 @@ Auditing Provider Notes
             - Audit Requirement:
                 - Mark “Audit”
 5. ***Compile Audited Data***<br/>
-    - Review ‘AuditCompilation’
+    - Review [AuditCompilation](GoogleSheets/Master%20Provider%20Audit%20Data/AuditCompilation.png)
         For every tab and dataset:
         - Each tab MUST have some type of data in A2 and below.
         - Any row requiring review must have:
@@ -366,17 +379,15 @@ Auditing Provider Notes
             - Only valid, actionable discrepancies are flagged
         - IF there is an error in the tab data:
             - Each tab MUST have some type of data in A2 and below.
-    - Transfer data to ‘Tracker-Post’
-        Copy all data from AuditCompilation tab (Excluding Headers)
-    - Transfer data to ‘Tracker-Post’
+    - Transfer data to [Tracker-Post](GoogleSheets/Master%20Provider%20Audit%20Data/Tracker-Post.png)
+        Copy all data (No Headers) from [AuditCompilation](GoogleSheets/Master%20Provider%20Audit%20Data/AuditCompilation.png)
 6. ***Upload to Provider Audit Trackers***<br/>
-    - Run Google Script “AuditDataPaste” from “Master Provider Audit Data” sheet
-        - Open Extensions > Apps Scripts
-        - Run AuditDataPaste script
+    - Open Extensions > Apps Scripts
+        - Run Google Script: [AuditDataPaste](GoogleScripts/Master%20Provider%20Audit%20Data/AuditDataPaste.js)
 7. ***Update Statuses & Notify Providers***<br/>
-    - Open “Master Provider Billing Audit Tracker”
+    - Open Google Sheet: [Master Provider Billing Audit Tracker](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/)
         - Open Extensions > Apps Scripts
-        - Run “New_SendAuditEmails” script
+        - Run Google Script: [New_SendAuditEmails](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/New_SendAuditEmails.js)
             - Edit any portion of the email that you want to change if needed.
         - This will scan each provider tracker to see if they have anything that was posted based upon the audit. Anything that is found will automatically send an email to providers that have anything on their trackers.
         - Column K (Status) will change for each provider based upon the type of actions needed if there were any.
@@ -384,17 +395,17 @@ Auditing Provider Notes
             - If status is “Note Revisions Needed”, that means that the provider has notes that need to be revised for billing accuracy.
         - If status is “Complete”, that means that there are no revisions on the provider tracker.
 8. ***Update Weekly Audit History***<br/>
-    - Open “Master Provider Billing Audit Tracker”
+    - Open Google Sheet: [Master Provider Billing Audit Tracker](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker)
         - Open Extensions > Apps Scripts
-        - Run “WeeklyAuditHistory” script
-        - This will scan the “Master Tracker” tab and update each provider that has a status of “Incomplete Note” with an “X” on the corresponding date’s column.
+        - Run Google Script: [WeeklyAuditHistory](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/WeeklyAuditHistory.js)
+        - This will scan the [Master Tracker](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/Master%20Tracker.png) and update each provider that has a status of “Incomplete Note” with an “X” on the corresponding date’s column.
             - The date that you run the script has to match one of the dates on the headers otherwise it will throw an error.
 9. ***Re-check to update status***<br/>
-    - Open “Master Provider Billing Audit Tracker”
+    - Open Google Sheet: [Master Provider Billing Audit Tracker](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/)
         - Open Extensions > Apps Scripts
-        - Run “New_UpdateStatus_NoEmail” script
-        - This will scan each provider tracker to see if they have anything that was posted based upon the audit. Anything that is found will automatically send an email to providers that have anything on their trackers.
-        - Column K (Status) will change for each provider based upon the type of actions needed if there were any.
+        - Run Google Script: [New_UpdateStatus_NoEmail](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/New_UpdateStatus_NoEmail.js)
+        - This will scan each [Provider Tracker](GoogleSheets/Name_PaycomID_Audit%20Tracker/Audit%20Tracker.png) to see if they have anything that was posted based upon the audit. Anything that is found will automatically send an email to providers that have anything on their trackers.
+        - Column K (Status) of [Master Provider Billing Audit Tracker](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker) will change for each provider based upon the type of actions needed if there were any.
             - If status is “Incomplete Note”, that means that the provider had at least one incomplete note on their individual tracker. They may have other note revisions on separate notes as well
             - If status is “Note Revisions Needed”, that means that the provider has notes that need to be revised for billing accuracy.
         - If status is “Complete”, that means that there are no revisions on the provider tracker.
