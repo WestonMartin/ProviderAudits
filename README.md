@@ -1,125 +1,151 @@
-# ProviderAudits
+# ProviderAudits_Readme
 Auditing Provider Notes  
 
--- **<ins>PROBLEM</ins>** --<br/>
-    The Healthcare (Therapy) company uses 3 different EMRs to manage provider notes for billing and pay purposes. Accurate notes are required to bill properly and determine hours for payroll.
+# -- **PROBLEM** --<br/>
+The Healthcare (Therapy) company uses 3 different EMRs to manage provider notes for billing and pay purposes. Accurate notes are required to bill properly and determine hours for payroll.
 
--- **<ins>SOLUTION</ins>** --<br/>
-     Create a system to download the provider notes from the EMRs each Monday to audit the notes that were submitted the week before using a framework of common mistakes and corrections needed. Create a way to alert the providers on an individual basis of specific edits that are needed for accurate billing and payroll.
+# -- **SOLUTION** --<br/>
+Create a system to download the provider notes from the EMRs each Monday to audit the notes that were submitted the week before using a framework of common mistakes and corrections needed. Create a way to alert the providers on an individual basis of specific edits that are needed for accurate billing and payroll.
 
 
-<-- **<ins>FILES</ins>** --<br/>
-<details><summary>Google Sheets</summary>
+# -- **FILES** --<br/>
+<details>
+<summary><b>Google Sheets</b></summary>
 
-- [Google Sheets](GoogleSheets)
-    - <details><summary>Master Provider Roster</summary>
++ <details>
+    <summary>Master Provider Roster</summary>
 
-- [Master Provider Roster](GoogleSheets/Master%20Provider%20Roster/)
     - Tab: [Master Provider Roster](GoogleSheets/Master%20Provider%20Roster/Master%20Provider%20Roster.png)
-</details>
-    - [Master Provider Audit Data](GoogleSheets/Master%20Provider%20Audit%20Data/)
-        - Tab: [Tracker-Post](GoogleSheets/Master%20Provider%20Audit%20Data/Tracker-Post.png)
-        - Tab: [AuditCompilation](GoogleSheets/Master%20Provider%20Audit%20Data/AuditCompilation.png)
-            - Formula: [AuditCompilation](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/AuditCompilations.js)
-        - Tab: [Tally_Master](GoogleSheets/Master%20Provider%20Audit%20Data/Tally_Master.png)
-        - Tab: [Tally_Check](GoogleSheets/Master%20Provider%20Audit%20Data/Tally_Check.png)
-            - Formula: [Tally_Check](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Tally_Check.js)
-        - Tab: [Tally_Group](GoogleSheets/Master%20Provider%20Audit%20Data/Tally_Group.png)
-            - Formula: [Tally_Group](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Tally_Group.js)
-        - Tab: [T_Duplicate](GoogleSheets/Master%20Provider%20Audit%20Data/T_Duplicate.png)
-            - Formula: [T_Duplicate](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/T_Duplicate.js)
-        - Tab: [TGroup_Yes](GoogleSheets/Master%20Provider%20Audit%20Data/TGroup_Yes.png)
-            - Formula: [TGroup_Yes](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/TGroup_Yes.js)
-        - Tab: [TGroup_No](GoogleSheets/Master%20Provider%20Audit%20Data/TGroup_No.png)
-            - Formula: [TGroup_No](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/TGroup_No.js)
-        - Tab: [T_TNCare](GoogleSheets/Master%20Provider%20Audit%20Data/T_TNCare.png)
-            - Formula: [T_TNCare](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/T_TNCare.js)
-        - Tab: [Fusion_Master](GoogleSheets/Master%20Provider%20Audit%20Data/Fusion_Master.png)
-        - Tab: [CR_Master](GoogleSheets/Master%20Provider%20Audit%20Data/CR_Master.png)
-        - Tab: [CR_Misc](GoogleSheets/Master%20Provider%20Audit%20Data/CR_Misc.png)
-        - Tab: [CR_Unconverted](GoogleSheets/Master%20Provider%20Audit%20Data/CR_Unconverted.png)
-            - Formula: [CR_Unconverted](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/CR_Unconverted.js)
-        - Tab: [Sch_Notes](GoogleSheets/Master%20Provider%20Audit%20Data/Sch_Notes.png)
-            - Formula: [Sch_Notes](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Sch_Notes.js)
-        - Tab: [Sch_Pay_Loc](GoogleSheets/Master%20Provider%20Audit%20Data/Sch_Pay_Loc.png)
-            - Formula: [Sch_Pay_Loc](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Sch_Pay_Loc.js)
-        - Tab: [9](GoogleSheets/Master%20Provider%20Audit%20Data/9.png)
-            - Formula: [9](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/9.js)
-        - Tab: [School](GoogleSheets/Master%20Provider%20Audit%20Data/School.png)
-            - Formula: [School](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/School.js)
-        - Tab: [School Code-Payer Match](GoogleSheets/Master%20Provider%20Audit%20Data/School%20Code-Payer%20Match.png)
-            - Formula: [School Code-Payer Match](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/School%20Code-Payer%20Match.js)
-        - Tab: [Flat to Hourly](GoogleSheets/Master%20Provider%20Audit%20Data/Flat%20to%20Hourly.png)
-            - Formula: [Flat to Hourly](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Flat%20to%20Hourly.js)
-        - Tab: [NB+](GoogleSheets/Master%20Provider%20Audit%20Data/NB+.png)
-            - Formula: [NB+](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/NB+.js)
-        - Tab: [NB-](GoogleSheets/Master%20Provider%20Audit%20Data/NB-.png)
-            - Formula: [NB-](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/NB-.js)
-        - Tab: [Multi-Codes](GoogleSheets/Master%20Provider%20Audit%20Data/Multi-Codes.png)
-            - Formula: [Multi-Codes](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Multi-Codes.js)
-        - Tab: [Code Service Match](GoogleSheets/Master%20Provider%20Audit%20Data/Code%20Service%20Match.png)
-            - Formula: [Code Service Match](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Code%20Service%20Match.js)
-        - Tab: [Group_Y](GoogleSheets/Master%20Provider%20Audit%20Data/Group_Y.png)
-            - Formula: [Group_Y](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Group_Y.js)
-        - Tab: [Group_N](GoogleSheets/Master%20Provider%20Audit%20Data/Group_N.png)
-            - Formula: [Group_N](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Group_N.js)
-        - Tab: [Group Calculations](GoogleSheets/Master%20Provider%20Audit%20Data/Group%20Calculations.png)
-            - Formula: [Group Calculations](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Group%20Calculations.js)
-        - Tab: [Blank Payers](GoogleSheets/Master%20Provider%20Audit%20Data/Blank%20Payers.png)
-            - Formula: [Blank Payers](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Blank%20Payers.js)
-        - Tab: [INT_Blanks](GoogleSheets/Master%20Provider%20Audit%20Data/INT_Blanks.png)
-        - Tab: [RerouteReport](GoogleSheets/Master%20Provider%20Audit%20Data/RerouteReport.png)
-        - Tab: [Reroute_Check](GoogleSheets/Master%20Provider%20Audit%20Data/Reroute_Check.png)
-            - Formula: [Reroute_Check](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Reroute_Check.js)
-        - Tab: [INT_Reroutes](GoogleSheets/Master%20Provider%20Audit%20Data/INT_Reroutes.png)
-            - Formula: [INT_Reroutes](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/INT_Reroutes.js)
-    - [Master Provider Billing Audit Tracker](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/)
-        - Tab: [Master Tracker](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/Master%20Tracker.png)
-        - Tab: [Weekly Audit History](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/Weekly%20Audit%20History.png)
-        - Tab: [SourceSheet](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/SourceSheet.png)
-            - Formula: [SourceSheet](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/Formulas/SourceSheet.js)
++ <details>
+    <summary>Master Provider Audit Data</summary>
+
+    - Tab: [Tracker-Post](GoogleSheets/Master%20Provider%20Audit%20Data/Tracker-Post.png)
+    - Tab: [AuditCompilation](GoogleSheets/Master%20Provider%20Audit%20Data/AuditCompilation.png)
+        - Formula: [AuditCompilation](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/AuditCompilations.js)
+    - Tab: [Tally_Master](GoogleSheets/Master%20Provider%20Audit%20Data/Tally_Master.png)
+    - Tab: [Tally_Check](GoogleSheets/Master%20Provider%20Audit%20Data/Tally_Check.png)
+        - Formula: [Tally_Check](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Tally_Check.js)
+    - Tab: [Tally_Group](GoogleSheets/Master%20Provider%20Audit%20Data/Tally_Group.png)
+        - Formula: [Tally_Group](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Tally_Group.js)
+    - Tab: [T_Duplicate](GoogleSheets/Master%20Provider%20Audit%20Data/T_Duplicate.png)
+        - Formula: [T_Duplicate](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/T_Duplicate.js)
+    - Tab: [TGroup_Yes](GoogleSheets/Master%20Provider%20Audit%20Data/TGroup_Yes.png)
+        - Formula: [TGroup_Yes](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/TGroup_Yes.js)
+    - Tab: [TGroup_No](GoogleSheets/Master%20Provider%20Audit%20Data/TGroup_No.png)
+        - Formula: [TGroup_No](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/TGroup_No.js)
+    - Tab: [T_TNCare](GoogleSheets/Master%20Provider%20Audit%20Data/T_TNCare.png)
+        - Formula: [T_TNCare](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/T_TNCare.js)
+    - Tab: [Fusion_Master](GoogleSheets/Master%20Provider%20Audit%20Data/Fusion_Master.png)
+    - Tab: [CR_Master](GoogleSheets/Master%20Provider%20Audit%20Data/CR_Master.png)
+    - Tab: [CR_Misc](GoogleSheets/Master%20Provider%20Audit%20Data/CR_Misc.png)
+    - Tab: [CR_Unconverted](GoogleSheets/Master%20Provider%20Audit%20Data/CR_Unconverted.png)
+        - Formula: [CR_Unconverted](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/CR_Unconverted.js)
+    - Tab: [Sch_Notes](GoogleSheets/Master%20Provider%20Audit%20Data/Sch_Notes.png)
+        - Formula: [Sch_Notes](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Sch_Notes.js)
+    - Tab: [Sch_Pay_Loc](GoogleSheets/Master%20Provider%20Audit%20Data/Sch_Pay_Loc.png)
+        - Formula: [Sch_Pay_Loc](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Sch_Pay_Loc.js)
+    - Tab: [9](GoogleSheets/Master%20Provider%20Audit%20Data/9.png)
+        - Formula: [9](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/9.js)
+    - Tab: [School](GoogleSheets/Master%20Provider%20Audit%20Data/School.png)
+        - Formula: [School](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/School.js)
+    - Tab: [School Code-Payer Match](GoogleSheets/Master%20Provider%20Audit%20Data/School%20Code-Payer%20Match.png)
+        - Formula: [School Code-Payer Match](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/School%20Code-Payer%20Match.js)
+    - Tab: [Flat to Hourly](GoogleSheets/Master%20Provider%20Audit%20Data/Flat%20to%20Hourly.png)
+        - Formula: [Flat to Hourly](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Flat%20to%20Hourly.js)
+    - Tab: [NB+](GoogleSheets/Master%20Provider%20Audit%20Data/NB+.png)
+        - Formula: [NB+](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/NB+.js)
+    - Tab: [NB-](GoogleSheets/Master%20Provider%20Audit%20Data/NB-.png)
+        - Formula: [NB-](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/NB-.js)
+    - Tab: [Multi-Codes](GoogleSheets/Master%20Provider%20Audit%20Data/Multi-Codes.png)
+        - Formula: [Multi-Codes](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Multi-Codes.js)
+    - Tab: [Code Service Match](GoogleSheets/Master%20Provider%20Audit%20Data/Code%20Service%20Match.png)
+        - Formula: [Code Service Match](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Code%20Service%20Match.js)
+    - Tab: [Group_Y](GoogleSheets/Master%20Provider%20Audit%20Data/Group_Y.png)
+        - Formula: [Group_Y](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Group_Y.js)
+    - Tab: [Group_N](GoogleSheets/Master%20Provider%20Audit%20Data/Group_N.png)
+        - Formula: [Group_N](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Group_N.js)
+    - Tab: [Group Calculations](GoogleSheets/Master%20Provider%20Audit%20Data/Group%20Calculations.png)
+        - Formula: [Group Calculations](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Group%20Calculations.js)
+    - Tab: [Blank Payers](GoogleSheets/Master%20Provider%20Audit%20Data/Blank%20Payers.png)
+        - Formula: [Blank Payers](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Blank%20Payers.js)
+    - Tab: [INT_Blanks](GoogleSheets/Master%20Provider%20Audit%20Data/INT_Blanks.png)
+    - Tab: [RerouteReport](GoogleSheets/Master%20Provider%20Audit%20Data/RerouteReport.png)
+    - Tab: [Reroute_Check](GoogleSheets/Master%20Provider%20Audit%20Data/Reroute_Check.png)
+        - Formula: [Reroute_Check](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/Reroute_Check.js)
+    - Tab: [INT_Reroutes](GoogleSheets/Master%20Provider%20Audit%20Data/INT_Reroutes.png)
+        - Formula: [INT_Reroutes](GoogleSheets/Master%20Provider%20Audit%20Data/Formulas/INT_Reroutes.js)
++ <details>
+    <summary>Master Provider Billing Audit Tracker</summary>
+
+    - Tab: [Master Tracker](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/Master%20Tracker.png)
+    - Tab: [Weekly Audit History](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/Weekly%20Audit%20History.png)
+    - Tab: [SourceSheet](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/SourceSheet.png)
+        - Formula: [SourceSheet](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/Formulas/SourceSheet.js)
     - [Name_PaycomID_Audit Tracker](GoogleSheets/Name_PaycomID_Audit%20Tracker)
         - Tab: [Audit Tracker](GoogleSheets/Name_PaycomID_Audit%20Tracker/Audit%20Tracker.png)
 </details>
-<details><summary>Google Scripts</summary>
-
-- [Google Scripts](GoogleScripts/)
-    - [Master Provider Audit Data](GoogleScripts/Master%20Provider%20Audit%20Data/)
-        - [MasterTracker_ProviderUpdate](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/MasterTracker_ProviderUpdate.js)
-        - [CreateTrackers](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/CreateTrackers.js)
-        - [AuditTrackerTabPermissionsUpdate](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/AuditTrackerTabPermissionsUpdate.js)
-        - [PasteMissingTrackerLinks](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/PasteMissingTrackerLinks.js)
-        - [WeeklyAuditHistory](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/WeeklyAuditHistory.js)
-        - [New_SendAuditEmails](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/New_SendAuditEmails.js)
-        - [New_UpdateStatus_NoEmail](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/New_UpdateStatus_NoEmail.js)
-        - [NewProvider_WeeklyHistory](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/NewProvider_WeeklyHistory.js)
-    - [Master Provider Billing Audit Tracker](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker)
-        - [AuditDataPaste](GoogleScripts/Master%20Provider%20Audit%20Data/AuditDataPaste.js)
-        - [NoPayorAudit](GoogleScripts/Master%20Provider%20Audit%20Data/NoPayorAudit.js)
-        - [Reroutes](GoogleScripts/Master%20Provider%20Audit%20Data/Reroutes.js)
+</details>
+</details>
 </details>
 
--- **<ins>PROCESS</ins>** --<br/>
+<details>
+<summary><b>Google Scripts</b></summary>
+
++ <details>
+    <summary>Master Provider Audit Data</summary>
+    
+    + [MasterTracker_ProviderUpdate](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/MasterTracker_ProviderUpdate.js)
+    + [CreateTrackers](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/CreateTrackers.js)
+    + [AuditTrackerTabPermissionsUpdate](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/AuditTrackerTabPermissionsUpdate.js)
+    + [PasteMissingTrackerLinks](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/PasteMissingTrackerLinks.js)
+    + [WeeklyAuditHistory](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/WeeklyAuditHistory.js)
+    + [New_SendAuditEmails](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/New_SendAuditEmails.js)
+    + [New_UpdateStatus_NoEmail](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/New_UpdateStatus_NoEmail.js)
+    + [NewProvider_WeeklyHistory](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/NewProvider_WeeklyHistory.js)
+
++ <details>
+    <summary>Master Provider Billing Audit Tracker</summary>
+
+    + [AuditDataPaste](GoogleScripts/Master%20Provider%20Audit%20Data/AuditDataPaste.js)
+    + [NoPayorAudit](GoogleScripts/Master%20Provider%20Audit%20Data/NoPayorAudit.js)
+    + [Reroutes](GoogleScripts/Master%20Provider%20Audit%20Data/Reroutes.js)
+</details>
+</details>
+</details>
+</br>
+
+# -- **<ins>PROCESS</ins>** --<br/>
 
 1. ***Data Preparation***<br/>
     Prepare all necessary systems and ensure data accuracy before beginning the audit.
-    - **1.1 Missing Payors**
-        - Download Fusion billing data
-            - Run report: "CS_Master Billing Audit"
-        - Paste into [Master Provider Audit Data | Fusion Master](GoogleSheets/Master%20Provider%20Audit%20Data/Fusion_Master.png)
-        - Run GoogleScript: [NoPayorAudit](GoogleScripts/Master%20Provider%20Audit%20Data/NoPayorAudit.js)
-        - Search in [Master Provider Audit Data | INT_Blanks](GoogleSheets/Master%20Provider%20Audit%20Data/INT_Blanks.png) for any clients with blank payers.
-        - Update billing account routing in Fusion
-            - Billing > Billing Accounts > Edit > Statements
-        - Update payor in client profile in Fusion.
-            - Search > Profile > Payor > Add
-    - **1.2 Master Provider Roster**
-        - Verify all applicable providers are marked as active
-        - Ensure no inactive providers are included in the audit population
-    - **1.3 Master Provider Billing Audit Tracker**
-        - Run GoogleScript: [MasterTracker_ProviderUpdate](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/MasterTracker_ProviderUpdate.js)
-        - Run GoogleScript: [Create Trackers](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/CreateTrackers.js)
-        - Run GoogleScript: [NewProvider_WeeklyHistory](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/NewProvider_WeeklyHistory.js)
+    <details>
+    <summary><b>1.1 Missing Payors</b></summary>
+
+    - Download Fusion billing data
+        - Run report: "CS_Master Billing Audit"
+    - Paste into [Master Provider Audit Data | Fusion Master](GoogleSheets/Master%20Provider%20Audit%20Data/Fusion_Master.png)
+    - Run GoogleScript: [NoPayorAudit](GoogleScripts/Master%20Provider%20Audit%20Data/NoPayorAudit.js)
+    - Search in [Master Provider Audit Data | INT_Blanks](GoogleSheets/Master%20Provider%20Audit%20Data/INT_Blanks.png) for any clients with blank payers.
+    - Update billing account routing in Fusion
+        - Billing > Billing Accounts > Edit > Statements
+    - Update payor in client profile in Fusion.
+        - Search > Profile > Payor > Add
+    </details>
+    <details>
+    <summary><b>1.2 Master Provider Roster</b></summary>
+
+    - Verify all applicable providers are marked as active
+    - Ensure no inactive providers are included in the audit population
+    <details>
+    <summary><b>1.3 Master Provider Billing Audit Tracker</b></summary>
+
+    - Run GoogleScript: [MasterTracker_ProviderUpdate](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/MasterTracker_ProviderUpdate.js)
+    - Run GoogleScript: [Create Trackers](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/CreateTrackers.js)
+    - Run GoogleScript: [NewProvider_WeeklyHistory](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/NewProvider_WeeklyHistory.js)
+</details>
+</details>
+</details>
+
 2. ***Data Download***<br/>
     Pull all required datasets for the audit period.
     - **2.1 Fusion Data**
