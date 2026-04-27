@@ -7,10 +7,16 @@ Auditing Provider Notes
 -- **<ins>SOLUTION</ins>** --<br/>
      Create a system to download the provider notes from the EMRs each Monday to audit the notes that were submitted the week before using a framework of common mistakes and corrections needed. Create a way to alert the providers on an individual basis of specific edits that are needed for accurate billing and payroll.
 
--- **<ins>FILES</ins>** --<br/>
-- [Google Sheets](GoogleSheets/)
-    - [Master Provider Roster](GoogleSheets/Master%20Provider%20Roster/)
-        - Tab: [Master Provider Roster](GoogleSheets/Master%20Provider%20Roster/Master%20Provider%20Roster.png)
+
+<-- **<ins>FILES</ins>** --<br/>
+<details><summary>Google Sheets</summary>
+
+- [Google Sheets](GoogleSheets)
+    - <details><summary>Master Provider Roster</summary>
+
+- [Master Provider Roster](GoogleSheets/Master%20Provider%20Roster/)
+    - Tab: [Master Provider Roster](GoogleSheets/Master%20Provider%20Roster/Master%20Provider%20Roster.png)
+</details>
     - [Master Provider Audit Data](GoogleSheets/Master%20Provider%20Audit%20Data/)
         - Tab: [Tracker-Post](GoogleSheets/Master%20Provider%20Audit%20Data/Tracker-Post.png)
         - Tab: [AuditCompilation](GoogleSheets/Master%20Provider%20Audit%20Data/AuditCompilation.png)
@@ -74,6 +80,9 @@ Auditing Provider Notes
             - Formula: [SourceSheet](GoogleSheets/Master%20Provider%20Billing%20Audit%20Tracker/Formulas/SourceSheet.js)
     - [Name_PaycomID_Audit Tracker](GoogleSheets/Name_PaycomID_Audit%20Tracker)
         - Tab: [Audit Tracker](GoogleSheets/Name_PaycomID_Audit%20Tracker/Audit%20Tracker.png)
+</details>
+<details><summary>Google Scripts</summary>
+
 - [Google Scripts](GoogleScripts/)
     - [Master Provider Audit Data](GoogleScripts/Master%20Provider%20Audit%20Data/)
         - [MasterTracker_ProviderUpdate](GoogleScripts/Master%20Provider%20Billing%20Audit%20Tracker/MasterTracker_ProviderUpdate.js)
@@ -88,6 +97,7 @@ Auditing Provider Notes
         - [AuditDataPaste](GoogleScripts/Master%20Provider%20Audit%20Data/AuditDataPaste.js)
         - [NoPayorAudit](GoogleScripts/Master%20Provider%20Audit%20Data/NoPayorAudit.js)
         - [Reroutes](GoogleScripts/Master%20Provider%20Audit%20Data/Reroutes.js)
+</details>
 
 -- **<ins>PROCESS</ins>** --<br/>
 
