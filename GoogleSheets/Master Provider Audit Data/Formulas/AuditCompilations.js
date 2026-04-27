@@ -1,3 +1,4 @@
+//Column A
 =QUERY({
     IFERROR(QUERY(Sch_Notes!A:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""});
     IFERROR(QUERY(CR_Unconverted!A2:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""});
@@ -15,6 +16,9 @@
     IFERROR(QUERY('Multi-Codes'!A2:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""});
     IFERROR(QUERY('Code Service Match'!A2:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""});
     IFERROR(QUERY(CoSign_Supervisor_Post!A2:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""});
+    IFERROR(QUERY(TGroup_Yes!A2:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""});
+    IFERROR(QUERY(TGroup_No!A2:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""});
     IFERROR(QUERY(Tally_Check!A2:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""});
+    IFERROR(QUERY(T_Duplicate!A2:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""});
     IFERROR(QUERY(T_TNCare!A2:M, "select * where A is not null", 0), {""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""; ""})
 }, "select * where Col1 = 'Audit'", 1)

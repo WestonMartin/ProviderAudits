@@ -1,1 +1,2 @@
+//Column D
 =Query(Tally_Group!A:Z, "SELECT G, H, B, P, E, I, R, M, N, L WHERE X = 'MATCH'", 1)

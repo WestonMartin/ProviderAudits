@@ -1,1 +1,2 @@
+//Column D
 =Query(Tally_Group!A:W, "SELECT H, A, P, V, I, F, J, R, M, L WHERE V CONTAINS 'MED' AND (P CONTAINS 'TX' OR P CONTAINS 'EVL' OR P CONTAINS 'GRP')", 1)
